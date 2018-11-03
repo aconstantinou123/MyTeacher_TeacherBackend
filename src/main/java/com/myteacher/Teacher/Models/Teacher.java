@@ -13,17 +13,6 @@ public class Teacher {
     private String password;
     private String username;
 
-//    public Teacher() {}
-//
-//    public Teacher(ObjectId _id, String firstName, String lastName, String email, String password, String username){
-//        this._id = _id;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.password = password;
-//        this.username = username;
-//    }
-
     public ObjectId get_id() {
         return _id;
     }
