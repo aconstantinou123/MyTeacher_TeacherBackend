@@ -38,7 +38,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
                 Teacher creds = new ObjectMapper()
                     .readValue(req.getInputStream(),Teacher.class);
-
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             creds.getUsername(),
@@ -56,7 +55,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
-
         String token = JWT.create()
                 .withSubject(((User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))

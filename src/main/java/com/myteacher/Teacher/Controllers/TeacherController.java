@@ -23,10 +23,11 @@ public class TeacherController {
         return repository.findAll();
     }
 
-    @RequestMapping(value="/email/{email}", method = RequestMethod.GET)
-    public Teacher getTeacherByEmail(@PathVariable("email") String email) {
+    @RequestMapping(value="/username/{username}", method = RequestMethod.GET)
+    public Teacher getTeacherByEmail(@PathVariable("username") String username) {
+
         System.out.println("teacher retrieved");
-        return repository.findByEmail(email);
+        return repository.findByUsername(username);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

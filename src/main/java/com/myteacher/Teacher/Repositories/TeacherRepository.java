@@ -12,4 +12,5 @@ public interface TeacherRepository extends MongoRepository<Teacher, String> {
     Teacher findByEmail(String email);
 
     Teacher findByUsername(String username);
+
 }
