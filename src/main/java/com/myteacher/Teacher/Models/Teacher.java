@@ -6,19 +6,23 @@ import org.springframework.data.annotation.Id;
 public class Teacher {
 
     @Id
-    public ObjectId _id;
-    public String firstName;
-    public String lastName;
-    public String email;
+    private ObjectId _id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String username;
 
-    public Teacher() {}
+//    public Teacher() {}
 
-    public Teacher(ObjectId _id, String firstName, String lastName, String email){
-        this._id = _id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
+//    public Teacher(ObjectId _id, String firstName, String lastName, String email, String password, String username){
+//        this._id = _id;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.password = password;
+//        this.username = username;
+//    }
 
     public ObjectId get_id() {
         return _id;
@@ -50,6 +54,22 @@ public class Teacher {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
 
