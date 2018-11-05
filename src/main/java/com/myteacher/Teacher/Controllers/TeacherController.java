@@ -4,11 +4,17 @@ import com.myteacher.Teacher.Models.Teacher;
 import com.myteacher.Teacher.Repositories.TeacherRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static com.myteacher.Teacher.com.security.SecurityConstants.HEADER_STRING;
+import static com.myteacher.Teacher.com.security.SecurityConstants.TOKEN_PREFIX;
 
 @RestController
 @RequestMapping("/")
@@ -20,6 +26,13 @@ public class TeacherController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Teacher> getAllTeachers() {
         return repository.findAll();
+    }
+
+    @RequestMapping(value = "/persist-login", method = RequestMethod.GET)
+    public ResponseEntity<String> handle(@CookieValue("userToken") String userToken){
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set(HEADER_STRING, TOKEN_PREFIX + userToken);
+        return new ResponseEntity<String>(responseHeaders, HttpStatus.CREATED);
     }
 
     @RequestMapping(value="/username/{username}", method = RequestMethod.GET)

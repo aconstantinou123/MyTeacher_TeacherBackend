@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins="http://localhost:8080", allowedHeaders="*")
@@ -25,7 +23,6 @@ public class AuthenticationController {
 
     @RequestMapping(value = "/sign-up", method = RequestMethod.POST)
     public void signUp(@RequestBody Teacher teacher) {
-        System.out.println("here!" + teacher);
         teacher.setPassword(bCryptPasswordEncoder.encode(teacher.getPassword()));
         repository.save(teacher);
     }
