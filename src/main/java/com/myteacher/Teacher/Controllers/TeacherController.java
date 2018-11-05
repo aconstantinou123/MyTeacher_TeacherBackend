@@ -12,14 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/")
-
+@CrossOrigin(origins="http://localhost:8080", allowedHeaders="*")
 public class TeacherController {
     @Autowired
     private TeacherRepository repository;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Teacher> getAllTeachers() {
-
         return repository.findAll();
     }
 
