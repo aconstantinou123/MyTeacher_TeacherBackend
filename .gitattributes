@@ -1,1 +1,2 @@
-/wait-for-it.sh linguist-vendored
+* linguist-vendored
+*.java linguist-vendored=false
