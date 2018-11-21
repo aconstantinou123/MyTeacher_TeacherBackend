@@ -56,11 +56,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
+//        String[] roles = new String[1];
+//        roles[0] = "TEACHER";
         String token = JWT.create()
+                .withClaim("role", "TEACHER")
                 .withSubject(((User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
-
         Cookie cookie = new Cookie("userToken", token);
         cookie.setPath("/");
         cookie.setHttpOnly(true);

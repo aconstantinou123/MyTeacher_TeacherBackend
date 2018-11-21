@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -23,6 +24,7 @@ public class TeacherController {
     @Autowired
     private TeacherRepository repository;
 
+    @PreAuthorize("hasAuthority('TEACHER')")
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Teacher> getAllTeachers() {
         return repository.findAll();

@@ -1,9 +1,14 @@
 package com.myteacher.Teacher.com.security;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -13,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.myteacher.Teacher.com.security.SecurityConstants.HEADER_STRING;
 import static com.myteacher.Teacher.com.security.SecurityConstants.TOKEN_PREFIX;
@@ -49,9 +56,14 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     .build()
                     .verify(token.replace(TOKEN_PREFIX, ""))
                     .getSubject();
-
+            String role = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                            .build()
+                            .verify(token.replace(TOKEN_PREFIX, ""))
+                            .getClaim("role").asString();
+            ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+            grantedAuthorities.add(new SimpleGrantedAuthority(role));
             if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                return new UsernamePasswordAuthenticationToken(user, null, grantedAuthorities);
             }
             return null;
         }
