@@ -24,7 +24,8 @@ public class TeacherController {
     @Autowired
     private TeacherRepository repository;
 
-    @PreAuthorize("hasAuthority('TEACHER')")
+
+    @PreAuthorize("hasRole('TEACHER')")
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Teacher> getAllTeachers() {
         return repository.findAll();
@@ -37,6 +38,7 @@ public class TeacherController {
         return new ResponseEntity<String>(responseHeaders, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('TEACHER')")
     @RequestMapping(value="/username/{username}", method = RequestMethod.GET)
     public Teacher getTeacherByEmail(@PathVariable("username") String username) {
 
@@ -44,11 +46,13 @@ public class TeacherController {
         return repository.findByUsername(username);
     }
 
+    @PreAuthorize("hasRole('TEACHER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Teacher getTeacherById(@PathVariable("id") ObjectId id) {
         return repository.findBy_id(id);
     }
 
+    @PreAuthorize("hasRole('TEACHER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public void modifyTeacherById(@PathVariable("id") ObjectId id, @Valid @RequestBody Teacher teacher) {
         teacher.set_id(id);
@@ -62,6 +66,7 @@ public class TeacherController {
 //        return teacher;
 //    }
 
+    @PreAuthorize("hasRole('TEACHER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteTeacher(@PathVariable ObjectId id) {
         repository.delete(repository.findBy_id(id));

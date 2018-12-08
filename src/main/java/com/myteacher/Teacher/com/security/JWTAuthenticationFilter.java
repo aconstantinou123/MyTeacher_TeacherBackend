@@ -50,7 +50,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
     }
 
-
     @Override
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,
@@ -59,7 +58,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //        String[] roles = new String[1];
 //        roles[0] = "TEACHER";
         String token = JWT.create()
-                .withClaim("role", "TEACHER")
+                .withClaim("role", "ROLE_TEACHER")
                 .withSubject(((User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
