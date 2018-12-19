@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 
+
 import static com.myteacher.Teacher.com.security.SecurityConstants.*;
 
 @EnableWebSecurity
@@ -56,7 +57,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.setAllowCredentials(true);
-    configuration.addAllowedOrigin("http://localhost:8080");
+    configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:8080"));
     configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
     configuration.setAllowedHeaders(Arrays.asList("X-Requested-With","Origin","Content-Type","Accept","Authorization"));
 
